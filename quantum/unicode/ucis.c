@@ -4,6 +4,8 @@
 #include "ucis.h"
 #include "unicode.h"
 #include "action.h"
+#include "action_util.h"
+#include "host.h"
 
 uint8_t count                        = 0;
 bool    active                       = false;
@@ -28,7 +30,12 @@ uint8_t ucis_count(void) {
 
 static char keycode_to_char(uint16_t keycode) {
     if (keycode >= KC_A && keycode <= KC_Z) {
-        return 'a' + (keycode - KC_A);
+        const bool shifted = 
+            (bool)(get_mods() & MOD_MASK_SHIFT)  // Shifts
+                != // xor
+            host_keyboard_led_state().caps_lock; // capslock
+
+        return (shifted?'A':'a') + (keycode - KC_A);
     } else if (keycode >= KC_1 && keycode <= KC_9) {
         return '1' + (keycode - KC_1);
     } else if (keycode == KC_0) {

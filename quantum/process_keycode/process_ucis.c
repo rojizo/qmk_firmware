@@ -41,6 +41,10 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
             case KC_ENTER:
                 ucis_finish();
                 return false;
+            case KC_LSFT:
+            case KC_RSFT:
+            case KC_CAPS_LOCK:
+                return true;
             default:
                 return false;                
         }
