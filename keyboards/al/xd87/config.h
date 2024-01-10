@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UCIS_MAX_CODE_POINTS (1)
 #define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
+#define UCIS_NO_OUTPUT
+
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 400
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

@@ -25,14 +25,18 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         if (ucis_add(keycode)) {
+#ifndef UCIS_NO_OUTPUT
             tap_code(keycode);
+#endif
             return false;
         }
 
         switch (keycode) {
             case KC_BACKSPACE:
                 if(ucis_remove_last())
+#ifndef UCIS_NO_OUTPUT
                     tap_code(KC_BACKSPACE);
+#endif
                 return false;
             case KC_ESCAPE:
                 ucis_cancel();

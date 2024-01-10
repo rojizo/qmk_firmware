@@ -15,8 +15,9 @@ void ucis_start(void) {
     if (!active) {
         count  = 0;
         active = true;
-
+#ifndef UCIS_NO_OUTPUT
         register_unicode(0x2328); // ⌨
+#endif
     }
 }
 
@@ -86,9 +87,11 @@ void ucis_finish(void) {
         }
     }
 
+#ifndef UCIS_NO_OUTPUT
     for (uint8_t j = 0; j <= count; j++) {
         tap_code(KC_BACKSPACE);
     }
+#endif
 
     if (found) {
         register_ucis(i);
@@ -98,10 +101,11 @@ void ucis_finish(void) {
 }
 
 void ucis_cancel(void) {
+#ifndef UCIS_NO_OUTPUT
     for (uint8_t i = 0; i <= count; i++) {
         tap_code(KC_BACKSPACE);
     }
-
+#endif
     count  = 0;
     active = false;
 }
