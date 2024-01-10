@@ -24,21 +24,29 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
         if (ucis_count() >= UCIS_MAX_INPUT_LENGTH && !special) {
             return false;
         }
+        if (ucis_add(keycode)) {
+            tap_code(keycode);
+            return false;
+        }
 
-        if (!ucis_add(keycode)) {
-            switch (keycode) {
-                case KC_BACKSPACE:
-                    return ucis_remove_last();
-                case KC_ESCAPE:
-                    ucis_cancel();
-                    return false;
-                case KC_SPACE:
-                case KC_ENTER:
-                    ucis_finish();
-                    return false;
-                default:
-                    return false;
-            }
+        switch (keycode) {
+            case KC_BACKSPACE:
+                if(ucis_remove_last())
+                    tap_code(KC_BACKSPACE);
+                return false;
+            case KC_ESCAPE:
+                ucis_cancel();
+                return false;
+            case KC_SPACE:
+            case KC_ENTER:
+                ucis_finish();
+                return false;
+            case KC_LSFT:
+            case KC_RSFT:
+            case KC_CAPS_LOCK:
+                return true;
+            default:
+                return false;                
         }
     }
 
