@@ -65,6 +65,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case STR_LTX:
       if (record->event.pressed) { // pressed
       } else { // released
+        if (ucis_active()) {
+          ucis_finish();
+          wait_ms(50);
+        }
         ucis_start();
       }
       break;
