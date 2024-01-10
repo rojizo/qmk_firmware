@@ -60,12 +60,13 @@ bool ucis_remove_last(void) {
 }
 
 static bool match_mnemonic(char *mnemonic) {
-    for (uint8_t i = 0; input[i]; i++) {
+    uint8_t i = 0;
+    for (; input[i]; i++) {
         if (i > count || input[i] != mnemonic[i]) {
             return false;
         }
     }
-    return true;
+    return (mnemonic[i] == '\0');
 }
 
 void ucis_finish(void) {
