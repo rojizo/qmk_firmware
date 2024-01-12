@@ -53,6 +53,13 @@ const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("times",   0x0151),                    // ×
     UCIS_SYM("in",      0x2208),                    // ∈
     UCIS_SYM("notin",   0x2209),                    // ∉
+    UCIS_SYM("cup",     0x222A),                    // ∪
+    UCIS_SYM("cap",     0x2229),                    // ∩
+
+
+    UCIS_SYM("neq",     0x2260),                    // ≠
+
+    UCIS_SYM("forall",  0x2200),                    // ∀
 
 
 
