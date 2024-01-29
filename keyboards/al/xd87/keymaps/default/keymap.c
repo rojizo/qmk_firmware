@@ -1,6 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "latex.h"
 
+#define UNICODE_TIMEOUT (1000)
+
+static uint16_t idle_timer = 0;
+
 enum my_keycodes {
   STR_LTX = SAFE_RANGE,
   MY_BOOT,
@@ -48,6 +52,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 // Teclas custom
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (timer_elapsed(idle_timer) > UNICODE_TIMEOUT) {
+    if(ucis_active()) {
+      ucis_cancel();
+    }
+  }
+  idle_timer = timer_read();
+
   switch (keycode) {
     case STR_LTX:
       if (!record->event.pressed) {
@@ -91,5 +103,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
   }
 }
-
 
